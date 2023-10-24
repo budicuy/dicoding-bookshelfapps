@@ -49,9 +49,10 @@ function addBookItem() {
     const books = readFromLocalStorage("books") || [];
 
     const newBook = {
+        id: +new Date(),
         title: bookTitle.value.trim(),
         author: bookAuthor.value.trim(),
-        year: bookYear.value.trim(),
+        year: parseInt(bookYear.value),
         isComplete: bookIsComplete.checked
     };
 
@@ -89,7 +90,7 @@ function editBuku(index) {
     if (updatedBookTitle && updatedBookAuthor && updatedBookYear) {
         book.title = updatedBookTitle;
         book.author = updatedBookAuthor;
-        book.year = updatedBookYear;
+        book.year = parseInt(updatedBookYear);
 
         saveToLocalStorage("books", books);
         displayBookItems();
@@ -131,7 +132,6 @@ inputBook.addEventListener("submit", (event) => {
 displayBookItems();
 
 
-// cari buku
 function cariBuku() {
     const searchBookTitle = document.getElementById("searchBookTitle");
     const listPencarian = document.getElementById("list_pencarian");
@@ -158,14 +158,12 @@ function cariBuku() {
             }
         });
     } else {
-        listPencarian.classList.add("hidden");
+        hasilPencarian.innerHTML = "<p>Hasil Pencarian tidak boleh kosong!</p>";
     }
 
     if (hasilPencarian.innerHTML === "") {
-        hasilPencarian.innerHTML = "<p>Tidak ada buku yang ditemukan</p>";
+        hasilPencarian.innerHTML = "<p>Tidak ada buku yang ditemukan!</p>";
     }
-
-
 }
 
 const searchBook = document.getElementById("searchBook");
